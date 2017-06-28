@@ -39,20 +39,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void run() {
             switch (view.getId()){
                 case R.id.btn_get://get请求
-                    String getResult=loginByGet("202058","123");
-                    Log.i("MainActivity","Get 登录结果:"+getResult);
+                    String getResult=getUserInfo("123");
+                    Log.i("MainActivity","Get 获取用户信息:"+getResult);
                     break;
                 case R.id.btn_post://post请求
-                    String postResult=loginByPost("202058","123");
+                    String postResult=login("ansen","123");
                     Log.i("MainActivity","Post 登录结果:"+postResult);
                     break;
             }
         }
     }
 
-    private String loginByGet(String username,String password){
+    private String getUserInfo(String userid){
         //get的方式提交就是url拼接的方式
-        String path = "http://101.37.18.238:8089/ydhl/apiUn/login/login?ryxh="+username+"&mm="+password;
+        String path = "http://139.196.35.30:8080/OkHttpTest/getUserInfo.do?userid="+userid;
         try {
             URL url = new URL(path);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -68,14 +68,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return null;
     }
 
-    private String loginByPost(String username,String password){
-        String path = "http://101.37.18.238:8089/ydhl/apiUn/login/login";
+    private String login(String username,String password){
+        String path = "http://139.196.35.30:8080/OkHttpTest/login.do";
         try {
             URL url = new URL(path);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(5000);//设置连接超时时间
             connection.setRequestMethod("POST");//设置以Post方式提交数据
-            String data = "ryxh="+username+"&mm="+password;//请求数据
+            String data = "username="+username+"&password="+password;//请求数据
 
             //至少要设置的两个请求头
             connection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
