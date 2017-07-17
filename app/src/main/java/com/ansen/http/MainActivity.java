@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             connection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             connection.setRequestProperty("Content-Length",data.length()+"");
 
-            //post的方式提交实际上是流的方式提交给服务器
+            //post方式实际上是把请求参数以流的方式提交给服务器
             connection.setDoOutput(true);
             OutputStream outputStream = connection.getOutputStream();
             outputStream.write(data.getBytes());
